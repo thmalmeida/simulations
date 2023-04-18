@@ -1,0 +1,53 @@
+<Qucs Schematic 0.0.20>
+<Properties>
+  <View=-42,-950,1556,941,0.683014,0,0>
+  <Grid=10,10,0>
+  <DataSet=bjt_pwm_driver.dat>
+  <DataDisplay=bjt_pwm_driver.sch>
+  <OpenDisplay=1>
+  <Script=bjt_pwm_driver.m>
+  <RunScript=0>
+  <showFrame=0>
+  <FrameText0=Title>
+  <FrameText1=Drawn By:>
+  <FrameText2=Date:>
+  <FrameText3=Revision:>
+</Properties>
+<Symbol>
+</Symbol>
+<Components>
+</Components>
+<Wires>
+</Wires>
+<Diagrams>
+  <Rect 90 388 635 368 3 #c0c0c0 1 00 1 0 0.0005 0.004 1 -0.001 0.001 0.008 1 -1 0.2 1 315 0 225 "" "" "" "">
+	<"IR1.It" #0000ff 0 3 0 0 0>
+	<"Ib2.It" #ff0000 0 3 0 0 0>
+  </Rect>
+  <Rect 830 388 635 368 3 #c0c0c0 1 00 1 0 0.0005 0.004 1 -2 2 16.312 1 -0.5 0.5 4.07799 315 0 225 "" "" "" "">
+	<"Vm.Vt" #0000ff 0 3 0 0 0>
+	<"Im1.It" #ff0000 0 3 0 0 0>
+  </Rect>
+  <Rect 840 818 635 368 3 #c0c0c0 1 00 1 -1 0.2 1 1 -1 0.2 1 1 -1 0.2 1 315 0 225 "" "" "" "">
+	<"Ib2.It" #0000ff 0 3 0 0 0>
+  </Rect>
+  <Rect 90 -502 635 368 3 #c0c0c0 1 00 1 0 50 470 1 -0.0153956 0.05 0.268859 1 -1 0.2 1 315 0 225 "" "" "" "">
+	<"IR1.I" #ff0000 0 3 0 0 0>
+  </Rect>
+  <Rect 830 -502 635 368 3 #c0c0c0 1 00 1 0 0.2 2 1 0 1e-15 8.50095e-15 1 -1 0.2 1 315 0 225 "" "" "" "">
+	<"Vm.V" #0000ff 0 3 0 0 0>
+  </Rect>
+  <Rect 90 -72 635 368 3 #c0c0c0 1 00 1 -1 0.2 1 1 -1 0.2 1 1 -1 0.2 1 315 0 225 "" "" "" "">
+	<"Vce1.Vt" #0000ff 0 3 0 0 0>
+	<"Vce2.Vt" #ff0000 0 3 0 0 0>
+  </Rect>
+  <Rect 90 828 635 368 3 #c0c0c0 1 00 1 0 0.0005 0.004 1 -0.33 0.5 3.63 0 0 0.05 0.05 315 0 225 "" "" "" "">
+	<"Vb.Vt" #0000ff 0 3 0 0 0>
+	<"Ib1.It" #ff0000 0 3 0 0 1>
+  </Rect>
+  <Rect 840 -42 635 368 3 #c0c0c0 1 00 1 0 0.2 2 1 0 1e-15 6.60325e-15 1 -1 0.2 1 315 0 225 "" "" "" "">
+	<"vcb2" #0000ff 0 3 0 0 0>
+  </Rect>
+</Diagrams>
+<Paintings>
+</Paintings>

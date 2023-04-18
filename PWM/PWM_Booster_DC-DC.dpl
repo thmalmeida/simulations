@@ -1,0 +1,34 @@
+<Qucs Schematic 0.0.20>
+<Properties>
+  <View=-137,0,1499,1091,1,94,240>
+  <Grid=10,10,0>
+  <DataSet=PWM_Booster_DC-DC.dat>
+  <DataDisplay=PWM_Booster_DC-DC.sch>
+  <OpenDisplay=1>
+  <Script=PWM_Booster_DC-DC.m>
+  <RunScript=0>
+  <showFrame=0>
+  <FrameText0=Title>
+  <FrameText1=Drawn By:>
+  <FrameText2=Date:>
+  <FrameText3=Revision:>
+</Properties>
+<Symbol>
+</Symbol>
+<Components>
+</Components>
+<Wires>
+</Wires>
+<Diagrams>
+  <Rect 60 355 492 335 3 #c0c0c0 1 00 1 0 0.0005 0.003 1 -0.8 2 8.8 1 -1 0.5 1 315 0 225 "" "" "" "">
+	<"Vgs.Vt" #0000ff 0 3 0 0 0>
+  </Rect>
+  <Rect 151 907 1233 487 3 #c0c0c0 1 00 1 0 0.001 0.007 1 -16.5184 5 21.2387 1 -1 0.5 1 315 0 225 "" "" "" "">
+	<"Vout.Vt" #ff0000 0 3 0 0 0>
+	<"V_L.Vt" #ff5500 0 3 0 0 0>
+	<"Vmos.Vt" #000000 0 3 0 0 0>
+	<"Vgs.Vt" #00ff00 0 3 0 0 0>
+  </Rect>
+</Diagrams>
+<Paintings>
+</Paintings>

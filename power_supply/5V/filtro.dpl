@@ -1,0 +1,35 @@
+<Qucs Schematic 0.0.15>
+<Properties>
+  <View=-50,30,1074,740,1,50,30>
+  <Grid=10,10,0>
+  <DataSet=filtro.dat>
+  <DataDisplay=filtro.sch>
+  <OpenDisplay=1>
+  <showFrame=0>
+  <FrameText0=Title>
+  <FrameText1=Drawn By:>
+  <FrameText2=Date:>
+  <FrameText3=Revision:>
+</Properties>
+<Symbol>
+</Symbol>
+<Components>
+</Components>
+<Wires>
+</Wires>
+<Diagrams>
+  <Rect 90 310 240 160 3 #c0c0c0 1 00 1 0 0.2 1 1 -0.1 0.5 1.1 1 -0.1 0.5 1.1 315 0 225 "" "" "">
+	<"A.v" #0000ff 0 3 0 0 0>
+  </Rect>
+  <Rect 500 300 240 160 3 #c0c0c0 1 00 1 0 50000 200000 1 -28978 20000 8800.42 1 -1 1 1 315 0 225 "" "" "">
+	<"Vout.v" #0000ff 0 3 0 0 0>
+  </Rect>
+  <Rect 90 540 240 160 3 #c0c0c0 1 00 1 0 0.2 1 1 -0.1 0.5 1.1 1 -0.1 0.5 1.1 315 0 225 "" "" "">
+	<"A.Vt" #0000ff 0 3 0 0 0>
+  </Rect>
+  <Rect 510 550 240 160 3 #c0c0c0 1 00 1 0 0.2 1 1 -0.1 0.5 1.1 1 -0.1 0.5 1.1 315 0 225 "" "" "">
+	<"Vout.Vt" #0000ff 0 3 0 0 0>
+  </Rect>
+</Diagrams>
+<Paintings>
+</Paintings>

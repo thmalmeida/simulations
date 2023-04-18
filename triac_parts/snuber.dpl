@@ -1,0 +1,33 @@
+<Qucs Schematic 0.0.19>
+<Properties>
+  <View=0,0,965,800,1,0,0>
+  <Grid=10,10,0>
+  <DataSet=snuber.dat>
+  <DataDisplay=snuber.sch>
+  <OpenDisplay=1>
+  <Script=snuber.m>
+  <RunScript=0>
+  <showFrame=0>
+  <FrameText0=Título>
+  <FrameText1=Desenhado por:>
+  <FrameText2=Data:>
+  <FrameText3=Revisão:>
+</Properties>
+<Symbol>
+</Symbol>
+<Components>
+</Components>
+<Wires>
+</Wires>
+<Diagrams>
+  <Rect 140 254 758 234 3 #c0c0c0 1 00 1 0 1e-07 1e-06 1 -50.0002 200 600 1 -1 0.5 1 315 0 225 "" "" "">
+	<"Vc.Vt" #0000ff 0 3 0 0 0>
+	<"Vout.Vt" #ff0000 0 3 0 0 0>
+  </Rect>
+  <Rect 140 554 758 234 3 #c0c0c0 1 00 1 0 1e-07 1e-06 1 -50.0002 200 600 1 -1 0.5 1 315 0 225 "" "" "">
+	<"Ir.It" #ff00ff 0 3 0 0 0>
+	  <Mkr 1.15e-07 252 -203 3 0 0>
+  </Rect>
+</Diagrams>
+<Paintings>
+</Paintings>

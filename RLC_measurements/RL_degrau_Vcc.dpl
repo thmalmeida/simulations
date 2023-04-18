@@ -1,0 +1,38 @@
+<Qucs Schematic 0.0.20>
+<Properties>
+  <View=0,-1080,1338,1350,1,0,1080>
+  <Grid=10,10,0>
+  <DataSet=RL_degrau_Vcc.dat>
+  <DataDisplay=RL_degrau_Vcc.sch>
+  <OpenDisplay=1>
+  <Script=RL_degrau_Vcc.m>
+  <RunScript=0>
+  <showFrame=0>
+  <FrameText0=Title>
+  <FrameText1=Drawn By:>
+  <FrameText2=Date:>
+  <FrameText3=Revision:>
+</Properties>
+<Symbol>
+</Symbol>
+<Components>
+</Components>
+<Wires>
+</Wires>
+<Diagrams>
+  <Rect 170 -58 1121 442 3 #c0c0c0 1 00 1 0 0.001 0.02 1 -0.00998002 0.02 0.10978 1 -1 0.2 1 315 0 225 "" "" "" "">
+	<"VC.Vt" #0000ff 0 3 0 0 0>
+  </Rect>
+  <Rect 170 -618 1121 442 3 #c0c0c0 1 00 1 0 0.001 0.02 1 -0.00998002 0.02 0.10978 1 -1 0.2 1 315 0 225 "" "" "" "">
+	<"IRC.It" #0000ff 0 3 0 0 0>
+  </Rect>
+  <Rect 170 1237 750 297 3 #c0c0c0 1 00 1 0 0.0005 0.008 1 -0.988342 2 10.912 1 -1 0.5 1 315 0 225 "" "" "" "">
+	<"VL.Vt" #0000ff 0 3 0 0 0>
+	<"VR.Vt" #ff0000 0 3 0 0 0>
+  </Rect>
+  <Rect 160 572 1121 442 3 #c0c0c0 1 00 1 -1 0.2 1 1 -1 0.5 1 1 -1 0.5 1 315 0 225 "" "" "" "">
+	<"Is.It" #0000ff 0 3 0 0 0>
+  </Rect>
+</Diagrams>
+<Paintings>
+</Paintings>

@@ -1,0 +1,41 @@
+<Qucs Schematic 0.0.20>
+<Properties>
+  <View=-83,-776,2262,1056,0.528993,247,0>
+  <Grid=10,10,0>
+  <DataSet=fonte_corrente.dat>
+  <DataDisplay=fonte_corrente.sch>
+  <OpenDisplay=1>
+  <Script=fonte_corrente.m>
+  <RunScript=0>
+  <showFrame=0>
+  <FrameText0=Title>
+  <FrameText1=Drawn By:>
+  <FrameText2=Date:>
+  <FrameText3=Revision:>
+</Properties>
+<Symbol>
+</Symbol>
+<Components>
+</Components>
+<Wires>
+</Wires>
+<Diagrams>
+  <Rect 502 34 1623 670 3 #c0c0c0 1 00 1 0 0.1 3.3 1 -1.2 0.5 13.2 1 -0.0234532 0.01 0.26 315 0 225 "" "" "" "">
+	<"Vce2.V" #00aa00 0 3 0 0 0>
+	<"Vce1.V" #cfcf00 0 3 0 0 0>
+	<"V_load.V" #0000ff 0 3 0 0 0>
+	<"V_adc.V" #00ff00 2 3 0 0 1>
+	  <Mkr 1.848 947 -670 3 0 0>
+	<"i_load.I" #ff0000 0 3 0 0 1>
+  </Rect>
+  <Rect 511 550 1347 348 3 #c0c0c0 1 00 1 0 0.2 3.3 1 -0.525657 1 6 1 -1 0.5 1 315 0 225 "" "" "" "">
+	<"Vadc.V" #0000ff 0 3 0 0 0>
+	<"Vce1.V" #ff0000 0 3 0 0 0>
+  </Rect>
+  <Rect 511 980 1347 348 3 #c0c0c0 1 00 1 0 0.2 3.3 1 -0.00819562 0.02 0.0901518 1 -1 0.5 1 315 0 225 "" "" "" "">
+	<"Ic2.I" #ff0000 0 3 0 0 0>
+	<"Ib1.I" #ff00ff 0 3 0 0 0>
+  </Rect>
+</Diagrams>
+<Paintings>
+</Paintings>

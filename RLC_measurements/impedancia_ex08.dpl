@@ -1,0 +1,36 @@
+<Qucs Schematic 0.0.20>
+<Properties>
+  <View=0,-617,1466,1270,1,0,600>
+  <Grid=10,10,0>
+  <DataSet=impedancia_ex08.dat>
+  <DataDisplay=impedancia_ex08.sch>
+  <OpenDisplay=1>
+  <Script=impedancia_ex08.m>
+  <RunScript=0>
+  <showFrame=0>
+  <FrameText0=Title>
+  <FrameText1=Drawn By:>
+  <FrameText2=Date:>
+  <FrameText3=Revision:>
+</Properties>
+<Symbol>
+</Symbol>
+<Components>
+</Components>
+<Wires>
+</Wires>
+<Diagrams>
+  <Rect 220 50 1169 640 3 #c0c0c0 1 00 1 0.0166667 0.005 0.07 1 -400 100 400 1 -1 0.2 1 315 0 225 "" "" "" "">
+	<"VRS.Vt" #000000 2 3 0 0 0>
+	  <Mkr 0.01944 121 -647 3 0 0>
+	<"V_R.Vt" #0000ff 0 3 0 0 0>
+	<"V_S.Vt" #ff0000 0 3 0 0 0>
+	  <Mkr 0.0263734 273 -544 3 0 0>
+  </Rect>
+  <Rect 340 772 874 522 3 #c0c0c0 1 00 1 -1 0.1 1 1 -1 0.2 1 1 -1 0.2 1 315 0 225 "" "" "" "">
+	<"Vs3.Vt" #0000ff 0 3 0 0 0>
+	  <Mkr 0.0166667 63 -538 3 0 0>
+  </Rect>
+</Diagrams>
+<Paintings>
+</Paintings>

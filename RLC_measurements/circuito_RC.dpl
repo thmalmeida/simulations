@@ -1,0 +1,33 @@
+<Qucs Schematic 0.0.20>
+<Properties>
+  <View=0,0,1278,800,1,0,0>
+  <Grid=10,10,0>
+  <DataSet=circuito_RC.dat>
+  <DataDisplay=circuito_RC.sch>
+  <OpenDisplay=1>
+  <Script=circuito_RC.m>
+  <RunScript=0>
+  <showFrame=0>
+  <FrameText0=Title>
+  <FrameText1=Drawn By:>
+  <FrameText2=Date:>
+  <FrameText3=Revision:>
+</Properties>
+<Symbol>
+</Symbol>
+<Components>
+</Components>
+<Wires>
+</Wires>
+<Diagrams>
+  <Rect 130 442 942 422 3 #c0c0c0 1 00 1 0.0166667 0.005 0.07 1 -43.7989 10 43.7998 1 -0.00016881 5e-05 0.000168805 315 0 225 "" "" "" "">
+	<"Vs1.Vt" #0000ff 0 3 0 0 0>
+	<"I1.It" #ff0000 0 3 0 0 1>
+  </Rect>
+  <Truth 250 629 295 89 3 #c0c0c0 1 00 1 0 1 1 1 0 1 1 1 0 1 1 315 0 225 "" "" "" "">
+	<"I1" #0000ff 0 3 0 0 0>
+	<"V1" #0000ff 0 3 0 0 0>
+  </Truth>
+</Diagrams>
+<Paintings>
+</Paintings>

@@ -1,0 +1,31 @@
+<Qucs Schematic 0.0.19>
+<Properties>
+  <View=-107,-220,972,800,1,48,0>
+  <Grid=10,10,0>
+  <DataSet=snubber_Transiente.dat>
+  <DataDisplay=snubber_Transiente.sch>
+  <OpenDisplay=1>
+  <Script=snubber_Transiente.m>
+  <RunScript=0>
+  <showFrame=0>
+  <FrameText0=Título>
+  <FrameText1=Desenhado por:>
+  <FrameText2=Data:>
+  <FrameText3=Revisão:>
+</Properties>
+<Symbol>
+</Symbol>
+<Components>
+</Components>
+<Wires>
+</Wires>
+<Diagrams>
+  <Rect 20 316 905 509 3 #c0c0c0 1 00 1 0 5e-05 0.0006 1 -0.002 0.0005 0.002 1 -1 0.2 1 315 0 225 "" "" "">
+	<"Iz2.It" #0000ff 0 3 0 0 0>
+  </Rect>
+  <Tab 60 550 300 200 3 #c0c0c0 1 00 1 0 1 1 1 0 1 1 1 0 1 1 315 0 225 "" "" "">
+	<"Iz_rms" #0000ff 0 3 0 0 0>
+  </Tab>
+</Diagrams>
+<Paintings>
+</Paintings>

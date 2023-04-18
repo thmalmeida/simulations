@@ -1,0 +1,37 @@
+<Qucs Schematic 0.0.20>
+<Properties>
+  <View=0,0,1236,800,1,0,0>
+  <Grid=10,10,0>
+  <DataSet=pwm_driver_bjt_mosfet-n-e.dat>
+  <DataDisplay=pwm_driver_bjt_mosfet-n-e.sch>
+  <OpenDisplay=1>
+  <Script=pwm_driver_bjt_mosfet-n-e.m>
+  <RunScript=0>
+  <showFrame=0>
+  <FrameText0=Title>
+  <FrameText1=Drawn By:>
+  <FrameText2=Date:>
+  <FrameText3=Revision:>
+</Properties>
+<Symbol>
+</Symbol>
+<Components>
+</Components>
+<Wires>
+</Wires>
+<Diagrams>
+  <Rect 783 334 416 286 3 #c0c0c0 1 00 1 0 0.0005 0.004 1 -2 1 1.58739 1 -1 0.5 1 315 0 225 "" "" "" "">
+	<"Vm.Vt" #ff0000 0 3 0 0 0>
+  </Rect>
+  <Rect 143 324 416 286 3 #c0c0c0 1 00 1 -1 0.2 1 1 -1 0.5 1 1 -1 0.5 1 315 0 225 "" "" "" "">
+	<"Vce1.Vt" #0000ff 0 3 0 0 0>
+  </Rect>
+  <Rect 143 724 416 286 3 #c0c0c0 1 00 1 -1 0.2 1 1 -1 0.5 1 1 -1 0.5 1 315 0 225 "" "" "" "">
+	<"Vm.V" #0000ff 0 3 0 0 0>
+  </Rect>
+  <Rect 783 724 416 286 3 #c0c0c0 1 00 1 -1 2 12 1 -2.3 5 13.3 1 -1 0.5 1 315 0 225 "" "" "" "">
+	<"Vout.V" #0000ff 0 3 0 0 0>
+  </Rect>
+</Diagrams>
+<Paintings>
+</Paintings>

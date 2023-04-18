@@ -1,0 +1,63 @@
+<Qucs Schematic 0.0.20>
+<Properties>
+  <View=-53,-282,2192,1021,1,0,420>
+  <Grid=10,10,0>
+  <DataSet=ADC_Voltage.dat>
+  <DataDisplay=ADC_Voltage.sch>
+  <OpenDisplay=1>
+  <Script=ADC_Voltage.m>
+  <RunScript=0>
+  <showFrame=0>
+  <FrameText0=Title>
+  <FrameText1=Drawn By:>
+  <FrameText2=Date:>
+  <FrameText3=Revision:>
+</Properties>
+<Symbol>
+</Symbol>
+<Components>
+</Components>
+<Wires>
+</Wires>
+<Diagrams>
+  <Rect 254 759 819 451 3 #c0c0c0 1 00 1 0 0.002 0.033 1 -1.5 0.5 2.68001 1 -400 100 400 315 0 225 "" "" "" "">
+	<"Vin_2.Vt" #0000ff 0 3 0 0 1>
+	  <Mkr 0.0207655 455 -292 3 0 0>
+	  <Mkr 0.0292305 667 -304 3 0 0>
+	<"Vout_A2.Vt" #ff0000 0 3 0 0 0>
+	  <Mkr 0.0125651 377 -54 3 0 0>
+	  <Mkr 0.00416633 194 -427 3 0 0>
+	  <Mkr 0 17 -186 3 0 0>
+	<"Vref_2.Vt" #000000 0 3 0 0 0>
+  </Rect>
+  <Rect 244 189 819 451 3 #c0c0c0 1 00 1 0 0.002 0.033 1 -0.828826 0.5 2.16666 1 -214.188 50 216.864 315 0 225 "" "" "" "">
+	<"Vin_1.Vt" #0000ff 0 3 0 0 1>
+	  <Mkr 0.0208978 516 -303 3 0 0>
+	  <Mkr 0.0123667 433 -176 3 0 0>
+	<"Vout_A1.Vt" #ff0000 0 3 0 0 0>
+	  <Mkr 0.00396794 159 -448 3 0 0>
+	<"Vref_1.Vt" #000000 0 3 0 0 0>
+  </Rect>
+  <Rect 1294 189 819 451 3 #c0c0c0 1 00 1 0 0.002 0.033 1 -0.828826 0.5 2.16666 1 -214.188 50 216.864 315 0 225 "" "" "" "">
+	<"Vin_1.Vt" #0000ff 0 3 0 0 1>
+	  <Mkr 0.0208978 516 -303 3 0 0>
+	  <Mkr 0.0123667 433 -176 3 0 0>
+	<"Vout_A1.Vt" #ff0000 0 3 0 0 0>
+	  <Mkr 0.00396794 159 -448 3 0 0>
+	<"Vref_1.Vt" #000000 0 3 0 0 0>
+	<"Vout_B1.Vt" #00aa00 0 3 0 0 0>
+  </Rect>
+  <Rect 1294 759 819 451 3 #c0c0c0 1 00 1 0 0.1 1 1 -1.42237 1 5 1 -400 100 400 315 0 225 "" "" "" "">
+	<"Vin_2.Vt" #0000ff 0 3 0 0 1>
+	<"Vout_A2.Vt" #ff0000 0 3 0 0 0>
+	  <Mkr 0.0125651 237 -294 3 0 0>
+	  <Mkr 0 46 -356 3 0 0>
+	  <Mkr 0.00416633 194 -427 3 0 0>
+	<"Vref_2.Vt" #000000 0 3 0 0 0>
+	<"Vout_B2.Vt" #00aa00 0 3 0 0 0>
+  </Rect>
+</Diagrams>
+<Paintings>
+  <Text 910 -250 12 #000000 0 "Vrms = 127 Vac">
+  <Text 920 320 12 #000000 0 "Vrms = 220 Vac">
+</Paintings>
