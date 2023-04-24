@@ -1,0 +1,28 @@
+<Qucs Schematic 0.0.17>
+<Properties>
+  <View=0,0,800,800,1,0,0>
+  <Grid=10,10,0>
+  <DataSet=7c_ListaBasica.dat>
+  <DataDisplay=7c_ListaBasica.sch>
+  <OpenDisplay=1>
+  <Script=7c_ListaBasica.m>
+  <RunScript=0>
+  <showFrame=0>
+  <FrameText0=Título>
+  <FrameText1=Desenhado por:>
+  <FrameText2=Data:>
+  <FrameText3=Revisão:>
+</Properties>
+<Symbol>
+</Symbol>
+<Components>
+</Components>
+<Wires>
+</Wires>
+<Diagrams>
+  <Rect 130 484 543 404 3 #c0c0c0 1 00 1 0 0.0001 0.001 0 6.4 0.02 6.5 1 -1 0.2 1 315 0 225 "" "" "">
+	<"Vec" #0000ff 0 3 0 0 0>
+  </Rect>
+</Diagrams>
+<Paintings>
+</Paintings>

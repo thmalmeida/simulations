@@ -1,0 +1,38 @@
+<Qucs Schematic 0.0.17>
+<Properties>
+  <View=-6,-857,912,513,1,0,0>
+  <Grid=10,10,0>
+  <DataSet=FAPA.dat>
+  <DataDisplay=FAPA.sch>
+  <OpenDisplay=1>
+  <Script=FAPA.m>
+  <RunScript=0>
+  <showFrame=0>
+  <FrameText0=Título>
+  <FrameText1=Desenhado por:>
+  <FrameText2=Data:>
+  <FrameText3=Revisão:>
+</Properties>
+<Symbol>
+</Symbol>
+<Components>
+</Components>
+<Wires>
+</Wires>
+<Diagrams>
+  <Rect 128 456 737 427 3 #c0c0c0 1 10 0 100000 1 1e+06 1 2.88062 0.5 6.1549 1 -1 0.2 1 315 0 225 "" "" "">
+	<"Vout.v" #ff0000 0 3 0 0 0>
+  </Rect>
+  <Rect 100 -673 683 164 3 #c0c0c0 1 00 1 0 5e-07 8e-06 1 -6 2 6 1 -1 0.2 1 315 0 225 "" "" "">
+	<"Vin.Vt" #ff0000 0 3 0 0 0>
+  </Rect>
+  <Rect 100 -463 686 160 3 #c0c0c0 1 00 1 0 0.0002 0.002 1 -2.46408 2 2.45818 1 -1 1 1 315 0 225 "" "" "">
+	<"Vout.Vt" #0000ff 0 3 0 0 0>
+  </Rect>
+  <Rect 100 -253 689 167 3 #c0c0c0 1 00 1 0 1e-06 1e-05 1 -18 5 18 1 -1 0.2 1 315 0 225 "" "" "">
+	<"Vout.Vt" #0000ff 0 3 0 0 0>
+	<"Vin.Vt" #ff0000 0 3 0 0 0>
+  </Rect>
+</Diagrams>
+<Paintings>
+</Paintings>
