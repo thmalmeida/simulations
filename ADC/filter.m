@@ -1,23 +1,19 @@
-% close all, clear all, clc
+% Simple first order filter
+% thmalmeida on 2023-04-25
 
-v0 = csvread('raw_data.txt');
-
-% Low pass filter
-
+% Using the equation
 % y[n]=0.8y[n−1]+0.2x[n]
 
-n = length(v0);
-v1 = zeros(1, n);
-v1(1) = v0(1);
-for i=2:1:n
-    v1(i) = 0.8*v1(i-1) + 0.2*v0(i);
-end
+function ret = filter(v_in)
 
-% d_out = v0;
+	n			= length(v_in)
+	v_out		= zeros(1, n);
+	v_out(1)  	= v_in(1);
 
-% iL_t = (d_out*(Vmax-Vmin)/(m_bits) + Vmin - V_R2)*(1/Rb2)*(N2/N1);
+	for i=2:1:n
+		v_out(i) = 0.8*v_out(i-1) + 0.2*v_in(i);
+	end
 
-% plot(v0);
-% hold on;
-% plot(v1);
-% grid on;
+	ret = v_out;
+
+endfunction

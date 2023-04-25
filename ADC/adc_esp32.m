@@ -41,7 +41,7 @@ f_signal = 60;										% Frequency of sinal;
 n_cycles = 2;										% Number of cycles;
 T_signal = 1/f_signal;								% Signal period [s]
 w = 2*pi*f_signal;									% Angular frequency [rad/s]
-phi = +90*pi/180;											% Phase
+phi = -115*pi/180;											% Phase
 
 # Number of points per cycle definition based on sample rate or fixed
 n_points_cycle_2 = T_signal/Ts_adc;					% Number of points per cycle;
@@ -56,17 +56,17 @@ Vmax	= 2.45;										% Max read value for ADC peripheral [V];
 Vmin    = 0.12;										% Min read value for ADC peripheral [V];
 d_max	= 2^n_bits - 1;								% Max value correspond to max bit on linearity
 d_max	= 2895;
-R1		= 180*10^3;									% Voltage divisor top resistor [Ohms];
-R2		= 120*10^3;									% Voltage divisor bottom resistor [Ohms];
-Rb1		= 0;%+22;
-Rb2		= 120;%10+48;									% Burden resistor. Bias.
+R1		= 56*10^3;									% Voltage divisor top resistor [Ohms];
+R2		= 39*10^3;									% Voltage divisor bottom resistor [Ohms];
+Rb1		= 220;%+22;
+Rb2		= 75;%10+48;									% Burden resistor. Bias.
 V_R2	= Vdc*R2/(R1+R2);							% Voltage over R2 [V]. Offset voltage;
 
 N1		= 1;										% Current transformer sensor ration parameters
 N2		= 2000;										% Current transformer sensor ration parameters
 
-% iL_rms	= 0.949/sqrt(2)/(Rb1+Rb2)*(N2/N1);			% Load current [A];
-iL_rms	= 14;									% Load current [A];
+iL_rms	= 0.495./sqrt(2)/(Rb1+Rb2)*(N2/N1);			% Load current [A];
+% iL_rms	= 14;									% Load current [A];
 ib_rms	= iL_rms*(N1/N2);							% Current burden [A];
 ibp     = ib_rms*sqrt(2);							% current peak [A];
 ib_t	= ibp*sin(w*t+phi);							% i2 signal [A];
@@ -160,9 +160,10 @@ fprintf('n_points     : %d\n', n_points);
 % fprintf('n_points     : %d\n', n_points_div);
 % fprintf('Irms        : %f\n', Iksr_rms);
 
-filter
-Vadc2_t = v0*(Vmax-Vmin)/(d_max) + Vmin;
-iL2_t 	= (v0*(Vmax-Vmin)/(d_max) + Vmin - V_R2)*(1/Rb2)*(N2/N1);
+filter_script
+vf = v1f;												% Geladeira data;
+Vadc2_t = vf*(Vmax-Vmin)/(d_max) + Vmin;
+iL2_t 	= (vf*(Vmax-Vmin)/(d_max) + Vmin - V_R2)*(1/Rb2)*(N2/N1);
 iL2_rms = sqrt(sum(iL2_t.^2)/length(iL2_t));			% Load current RMS in [A], using equation;
 printf("iL2_rms: %.2f\n", iL2_rms);
 % set(gcf, 'Position', get(0,'Screensize'));
