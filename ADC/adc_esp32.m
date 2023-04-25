@@ -41,7 +41,7 @@ f_signal = 60;										% Frequency of sinal;
 n_cycles = 2;										% Number of cycles;
 T_signal = 1/f_signal;								% Signal period [s]
 w = 2*pi*f_signal;									% Angular frequency [rad/s]
-phi = 0;											% Phase
+phi = +90*pi/180;											% Phase
 
 # Number of points per cycle definition based on sample rate or fixed
 n_points_cycle_2 = T_signal/Ts_adc;					% Number of points per cycle;
@@ -52,44 +52,48 @@ t = linspace(0,1/f_signal*n_cycles,n_points); 		% Signal time vector [s].
 # Circuit polarization parameters for current sensor
 Vdc	    = 3.3;										% Voltage supply for transducer circuit [V];
 GND 	= 0.0;										% Groud value [V];
-Vmax	= 3.15;										% Max read value for ADC peripheral [V];
+Vmax	= 2.45;										% Max read value for ADC peripheral [V];
 Vmin    = 0.12;										% Min read value for ADC peripheral [V];
-R1		= 56*10^3;									% Voltage divisor top resistor [Ohms];
-R2		= 39*10^3;									% Voltage divisor bottom resistor [Ohms];
-Rb1		= 220+10;
-Rb2		= 68;										% Burden resistor. Bias.
+d_max	= 2^n_bits - 1;								% Max value correspond to max bit on linearity
+d_max	= 2895;
+R1		= 180*10^3;									% Voltage divisor top resistor [Ohms];
+R2		= 120*10^3;									% Voltage divisor bottom resistor [Ohms];
+Rb1		= 0;%+22;
+Rb2		= 120;%10+48;									% Burden resistor. Bias.
 V_R2	= Vdc*R2/(R1+R2);							% Voltage over R2 [V]. Offset voltage;
 
 N1		= 1;										% Current transformer sensor ration parameters
 N2		= 2000;										% Current transformer sensor ration parameters
 
-iL_rms	= 40;										% Load current [A];
-ib		= iL_rms/(N2/N1);							% Current burden [A];
-ibp     = ib*sqrt(2);								% current peak [A];
+% iL_rms	= 0.949/sqrt(2)/(Rb1+Rb2)*(N2/N1);			% Load current [A];
+iL_rms	= 14;									% Load current [A];
+ib_rms	= iL_rms*(N1/N2);							% Current burden [A];
+ibp     = ib_rms*sqrt(2);							% current peak [A];
 ib_t	= ibp*sin(w*t+phi);							% i2 signal [A];
 % ib_t	= zeros(1, n_points) + ibp;					% Uncomment for a constant signal [A]
 Vb		= (Rb1 + Rb2)*ib_t + V_R2;
 % Vadc_t 	= Rb2/(Rb1+Rb2)*(Vb-V_R2)
+VRb2_t  = ib_t*Rb2;
 Vadc_t	= Rb2*ib_t+V_R2;							% Voltage signal with offset readed by ADC pin;
 
 # ------ Finished the simulated signal ------
 
 % And then, we have a d_out simulated or you can use one real
-d_out	= (Vadc_t-Vmin)*(2^n_bits-1)/(Vmax-Vmin);	% Digital converted value readed by ADC peripheral of uC (simulated);
+d_out	= (Vadc_t-Vmin)/(Vmax-Vmin)*(d_max);		% Digital converted value readed by ADC peripheral of uC (simulated);
 % d_out 	= zeros(1, n_points) + Vdc;
-% d_out 	= round(Vadc_t*(2^n_bits-1)/(Vdc));				% Voltage signal vector converted to digital value;
+% d_out 	= round(Vadc_t*(d_max)/(Vdc));			% Voltage signal vector converted to digital value;
 
 % Resample d_out value to graphical visualization
 d_out_ss = repelem(d_out, 100);						% super sampling v2_k;
 t_ss = linspace(0, t(end), length(t)*100);			% super sampling time vector;
 
 # Finding Vadc_t after ADC read
-Vadc_t = d_out*(Vmax-Vmin)/(2^n_bits) + Vmin;
+Vadc_t = (d_out/d_max)*(Vmax-Vmin) + Vmin;
 
 # Converting the digital readed value to the load current in ampers [A];
-iL_t = (d_out*(Vmax-Vmin)/(2^n_bits-1) + Vmin - V_R2)*(1/Rb2)*(N2/N1);
+iL_t = (d_out*(Vmax-Vmin)/(d_max) + Vmin - V_R2)*(1/Rb2)*(N2/N1);
 
-% k1_ = Vdc/(2^n_bits-1)							% Divided parts to find Irms
+% k1_ = Vdc/(d_max)							% Divided parts to find Irms
 % k2_ = R2/(R1+R2)*Vdc
 % k3_ = (1/Rb)*(N2/N1)
 ib_rms 	= sqrt(sum(ib_t.^2)/length(ib_t));			% Signal current RMS in [A], using the common equation;
@@ -156,7 +160,11 @@ fprintf('n_points     : %d\n', n_points);
 % fprintf('n_points     : %d\n', n_points_div);
 % fprintf('Irms        : %f\n', Iksr_rms);
 
-
+filter
+Vadc2_t = v0*(Vmax-Vmin)/(d_max) + Vmin;
+iL2_t 	= (v0*(Vmax-Vmin)/(d_max) + Vmin - V_R2)*(1/Rb2)*(N2/N1);
+iL2_rms = sqrt(sum(iL2_t.^2)/length(iL2_t));			% Load current RMS in [A], using equation;
+printf("iL2_rms: %.2f\n", iL2_rms);
 % set(gcf, 'Position', get(0,'Screensize'));
 
 % subplot(4,1,1);
@@ -166,6 +174,7 @@ fprintf('n_points     : %d\n', n_points);
 subplot(3,1,1);
 plot(t,Vadc_t,'g')
 hold on
+plot(t, Vadc2_t, 'r');
 line ([t(1) t(end)], [V_R2 V_R2], "linestyle", "-", "color", "k")
 line ([t(1) t(end)], [Vadc_max Vadc_max], "linestyle", "--", "color", "k")
 line ([t(1) t(end)], [Vadc_min Vadc_min], "linestyle", "--", "color", "k")
@@ -181,7 +190,9 @@ axis([0 t(end) (GND-0.2) Vdc])
 grid on
 
 subplot(3,1,2);
-plot(t,d_out,'k*')
+plot(t,d_out,'k*');
+hold on
+plot(t, v1, 'b');
 % xlabel('Time');
 ylabel('v2_k');
 title('Digital Signal')

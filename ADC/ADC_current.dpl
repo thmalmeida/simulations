@@ -1,6 +1,6 @@
 <Qucs Schematic 1.0.1>
 <Properties>
-  <View=0,-70,1487,900,1,0,0>
+  <View=0,-70,1487,1153,1,0,0>
   <Grid=10,10,0>
   <DataSet=ADC_current.dat>
   <DataDisplay=ADC_current.sch>
@@ -28,6 +28,7 @@
 	<"V_R2.Vt" #3d3846 2 3 0 0 0>
 	  <Mkr 0.0286353 852 -405 3 0 0>
 	<"Vb.Vt" #0000ff 0 3 0 0 0>
+	  <Mkr 0.00416633 190 -559 3 0 0>
   </Rect>
   <Tab 840 720 249 111 3 #c0c0c0 1 00 1 0 1 1 1 0 1 1 1 0 1 1 315 0 225 0 0 0 "" "" "">
 	<"Ib_rms" #0000ff 0 3 1 0 0>

@@ -1,4 +1,4 @@
-close all, clear all, clc
+% close all, clear all, clc
 
 v0 = csvread('raw_data.txt');
 
@@ -13,7 +13,11 @@ for i=2:1:n
     v1(i) = 0.8*v1(i-1) + 0.2*v0(i);
 end
 
-plot(v0);
-hold on;
-plot(v1);
-grid on;
+% d_out = v0;
+
+% iL_t = (d_out*(Vmax-Vmin)/(m_bits) + Vmin - V_R2)*(1/Rb2)*(N2/N1);
+
+% plot(v0);
+% hold on;
+% plot(v1);
+% grid on;
