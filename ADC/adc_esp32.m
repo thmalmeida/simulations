@@ -19,21 +19,20 @@ F_clk = 8e6;										% Crystal system clock [Hz];
 div_1 = 1;											% AHB bus prescale;
 div_2 = 1;											% APB2 bus prescale;
 div_3 = 8;											% ADC prescale;
-% divFc = 128;										% uC dision factor;
-% divScale = 16;									% software prescale factor;
+% divFc = 128;										% uC dision factor; (atmega328)
+% divScale = 16;									% software prescale factor; (atmega328)
 adc_clk = F_clk/div_1/div_2/div_3;					% ADC clock after all prescalers
-% Options sampling time: 1.5; 7.5; 13.5; 28.5; 41.5; 55.5; 71.5; 239.5.
+% Options sampling time: 1.5; 7.5; 13.5; 28.5; 41.5; 55.5; 71.5; 239.5. (stm32f103)
 adc_sampling_list = [1.5 7.5 13.5 28.5 41.5 55.5 71.5 239.5];
 adc_sampling_time = adc_sampling_list(8);			% amount of time clock to sample [cycles];
 adc_conv = 12.5;									% Fixed cycles number of ADC peripheral takes to convert [cycles];
 T_conv = adc_sampling_time + adc_conv;				% ADC conversion time [cycles];
-% T_conv = 1/1000;
 Fs_adc = adc_clk/T_conv;							% ADC sampling rate [samples/s];
-% Fs_adc = F_clk/divFc/13;							% Sample rate;
+Fs_adc = 21000;										% (ESP32, for example) Uncomment this line to set sample frequency directly;
+% Fs_adc = F_clk/divFc/13;							% Sample rate; (it is for atmega328)
 % Fs_div = Fs_adc/divScale;					    	% Sample rate with prescale;
 
-# After find de sample frequency
-Fs_adc = 21000;										% (ESP32, for example) Uncomment this line to set sample frequency directly;
+# After find de sample frequency, we have the sampling interval
 Ts_adc = 1/Fs_adc;									% Sample time [s];
 
 # Teorical periodic signal construction
@@ -49,17 +48,39 @@ n_points_cycle = Fs_adc/f_signal;					% Number of points per cycle;
 n_points = n_points_cycle*n_cycles;					% Number of signal points.
 t = linspace(0,1/f_signal*n_cycles,n_points); 		% Signal time vector [s].
 
+# ESP32 parameters for circuit voltage divider
+p(1).Vdc	= 3.3;
+p(1).GND	= 0.0;
+p(1).Vmax	= 2.45;
+p(1).Vmin	= 0.12;
+p(1).d_max	=  2895;
+p(1).R1		= 56*10^3;
+p(1).R2		= 39*10^3;
+p(1).Rb1	= 220;
+p(1).Rb2	= 75;
+
+# stm32f013
+p(2).Vdc	= 3.3;
+p(2).GND	= 0.0;
+p(2).Vmax	= 3.3;
+p(2).Vmin	= 0.0;
+p(2).d_max	= 2^n_bits - 1;
+p(2).R1		= 68*10^3;
+p(2).R2		= 68*10^3;
+p(2).Rb1	= 0;
+p(2).Rb2	= 220+75;
+
+id = 1;
 # Circuit polarization parameters for current sensor
-Vdc	    = 3.3;										% Voltage supply for transducer circuit [V];
-GND 	= 0.0;										% Groud value [V];
-Vmax	= 2.45;										% Max read value for ADC peripheral [V];
-Vmin    = 0.12;										% Min read value for ADC peripheral [V];
-d_max	= 2^n_bits - 1;								% Max value correspond to max bit on linearity
-d_max	= 2895;
-R1		= 56*10^3;									% Voltage divisor top resistor [Ohms];
-R2		= 39*10^3;									% Voltage divisor bottom resistor [Ohms];
-Rb1		= 220;%+22;
-Rb2		= 75;%10+48;									% Burden resistor. Bias.
+Vdc	    = p(id).Vdc;								% Voltage supply for transducer circuit [V];
+GND 	= p(id).GND;								% Groud value [V];
+Vmax	= p(id).Vmax;								% Max read value for ADC peripheral [V];
+Vmin    = p(id).Vmin;								% Min read value for ADC peripheral [V];
+d_max	= p(id).d_max;								% Max value correspond to max bit on linearity
+R1		= p(id).R1;									% Voltage divisor top resistor [Ohms];
+R2		= p(id).R2;									% Voltage divisor bottom resistor [Ohms];
+Rb1		= p(id).Rb1;%+22;
+Rb2		= p(id).Rb2;%10+48;							% Burden resistor. Bias.
 V_R2	= Vdc*R2/(R1+R2);							% Voltage over R2 [V]. Offset voltage;
 
 N1		= 1;										% Current transformer sensor ration parameters
@@ -160,11 +181,13 @@ fprintf('n_points     : %d\n', n_points);
 % fprintf('n_points     : %d\n', n_points_div);
 % fprintf('Irms        : %f\n', Iksr_rms);
 
-filter_script
-vf = v1f;												% Geladeira data;
-Vadc2_t = vf*(Vmax-Vmin)/(d_max) + Vmin;
-iL2_t 	= (vf*(Vmax-Vmin)/(d_max) + Vmin - V_R2)*(1/Rb2)*(N2/N1);
-iL2_rms = sqrt(sum(iL2_t.^2)/length(iL2_t));			% Load current RMS in [A], using equation;
+experimental_data_script											% Load experimental data
+vf = v1f;															% Geladeira data;
+Vadc2_t = vf*(Vmax-Vmin)/(d_max) + Vmin;							% Voltage on Rb2 resistor;
+iL2_t_dc = (vf*(Vmax-Vmin)/(d_max) + Vmin - V_R2)*(1/Rb2)*(N2/N1);
+% iL2_t = iL2_t_dc - sum(iL2_t_dc)/length(iL2_t_dc);					% DC offset remove before RMS calculation;
+iL2_t = iL2_t_dc;
+iL2_rms = sqrt(sum(iL2_t.^2)/length(iL2_t));						% Load current RMS in [A], using equation;
 printf("iL2_rms: %.2f\n", iL2_rms);
 % set(gcf, 'Position', get(0,'Screensize'));
 
@@ -194,7 +217,7 @@ subplot(3,1,2);
 plot(t,d_out,'k*');
 hold on
 plot(t, v1, 'b');
-% xlabel('Time');
+xlabel('Time');
 ylabel('v2_k');
 title('Digital Signal')
 axis([0 t(end) 0 (2^n_bits-1)])
