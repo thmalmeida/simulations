@@ -6,7 +6,7 @@
 
 function ret = filter(v_in)
 
-	n			= length(v_in)
+	n			= length(v_in);
 	v_out		= zeros(1, n);
 	v_out(1)  	= v_in(1);
 

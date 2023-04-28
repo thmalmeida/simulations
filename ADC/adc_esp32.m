@@ -28,7 +28,7 @@ adc_sampling_time = adc_sampling_list(8);			% amount of time clock to sample [cy
 adc_conv = 12.5;									% Fixed cycles number of ADC peripheral takes to convert [cycles];
 T_conv = adc_sampling_time + adc_conv;				% ADC conversion time [cycles];
 Fs_adc = adc_clk/T_conv;							% ADC sampling rate [samples/s];
-Fs_adc = 21000;										% (ESP32, for example) Uncomment this line to set sample frequency directly;
+Fs_adc = 3494;										% (ESP32, for example) Uncomment this line to set sample frequency directly;
 % Fs_adc = F_clk/divFc/13;							% Sample rate; (it is for atmega328)
 % Fs_div = Fs_adc/divScale;					    	% Sample rate with prescale;
 
@@ -37,7 +37,7 @@ Ts_adc = 1/Fs_adc;									% Sample time [s];
 
 # Teorical periodic signal construction
 f_signal = 60;										% Frequency of sinal;
-n_cycles = 2;										% Number of cycles;
+n_cycles = 4;										% Number of cycles;
 T_signal = 1/f_signal;								% Signal period [s]
 w = 2*pi*f_signal;									% Angular frequency [rad/s]
 phi = -115*pi/180;											% Phase
@@ -59,18 +59,29 @@ p(1).R2		= 39*10^3;
 p(1).Rb1	= 220;
 p(1).Rb2	= 75;
 
-# stm32f013
+# ESP32 1.0.0 board
 p(2).Vdc	= 3.3;
 p(2).GND	= 0.0;
-p(2).Vmax	= 3.3;
-p(2).Vmin	= 0.0;
-p(2).d_max	= 2^n_bits - 1;
-p(2).R1		= 68*10^3;
-p(2).R2		= 68*10^3;
+p(2).Vmax	= 2.45;
+p(2).Vmin	= 0.12;
+p(2).d_max	= 2895;
+p(2).R1		= 180*10^3;
+p(2).R2		= 120*10^3;
 p(2).Rb1	= 0;
-p(2).Rb2	= 220+75;
+p(2).Rb2	= 120;
 
-id = 1;
+# stm32f013
+p(3).Vdc	= 3.3;
+p(3).GND	= 0.0;
+p(3).Vmax	= 3.3;
+p(3).Vmin	= 0.0;
+p(3).d_max	= 2^n_bits - 1;
+p(3).R1		= 68*10^3;
+p(3).R2		= 68*10^3;
+p(3).Rb1	= 0;
+p(3).Rb2	= 220+75;
+
+id = 2;
 # Circuit polarization parameters for current sensor
 Vdc	    = p(id).Vdc;								% Voltage supply for transducer circuit [V];
 GND 	= p(id).GND;								% Groud value [V];
@@ -86,8 +97,8 @@ V_R2	= Vdc*R2/(R1+R2);							% Voltage over R2 [V]. Offset voltage;
 N1		= 1;										% Current transformer sensor ration parameters
 N2		= 2000;										% Current transformer sensor ration parameters
 
-iL_rms	= 0.495./sqrt(2)/(Rb1+Rb2)*(N2/N1);			% Load current [A];
-% iL_rms	= 14;									% Load current [A];
+% iL_rms	= 0.495./sqrt(2)/(Rb1+Rb2)*(N2/N1);			% Load current [A];
+iL_rms	= 0.066;									% Load current [A];
 ib_rms	= iL_rms*(N1/N2);							% Current burden [A];
 ibp     = ib_rms*sqrt(2);							% current peak [A];
 ib_t	= ibp*sin(w*t+phi);							% i2 signal [A];
@@ -182,13 +193,13 @@ fprintf('n_points     : %d\n', n_points);
 % fprintf('Irms        : %f\n', Iksr_rms);
 
 experimental_data_script											% Load experimental data
-vf = v1f;															% Geladeira data;
+vf = v3f;															% Geladeira data;
 Vadc2_t = vf*(Vmax-Vmin)/(d_max) + Vmin;							% Voltage on Rb2 resistor;
 iL2_t_dc = (vf*(Vmax-Vmin)/(d_max) + Vmin - V_R2)*(1/Rb2)*(N2/N1);
-% iL2_t = iL2_t_dc - sum(iL2_t_dc)/length(iL2_t_dc);					% DC offset remove before RMS calculation;
-iL2_t = iL2_t_dc;
+iL2_t = dc_remove(iL2_t_dc);										% DC offset remove before RMS calculation;
+% iL2_t = iL2_t_dc;
 iL2_rms = sqrt(sum(iL2_t.^2)/length(iL2_t));						% Load current RMS in [A], using equation;
-printf("iL2_rms: %.2f\n", iL2_rms);
+printf("iL2_rms: %.3f\n", iL2_rms);
 % set(gcf, 'Position', get(0,'Screensize'));
 
 % subplot(4,1,1);
@@ -198,7 +209,7 @@ printf("iL2_rms: %.2f\n", iL2_rms);
 subplot(3,1,1);
 plot(t,Vadc_t,'g')
 hold on
-plot(t, Vadc2_t, 'r');
+% plot(t, Vadc2_t, 'r');
 line ([t(1) t(end)], [V_R2 V_R2], "linestyle", "-", "color", "k")
 line ([t(1) t(end)], [Vadc_max Vadc_max], "linestyle", "--", "color", "k")
 line ([t(1) t(end)], [Vadc_min Vadc_min], "linestyle", "--", "color", "k")
@@ -216,7 +227,7 @@ grid on
 subplot(3,1,2);
 plot(t,d_out,'k*');
 hold on
-plot(t, v1, 'b');
+% plot(t, v1, 'b');
 xlabel('Time');
 ylabel('v2_k');
 title('Digital Signal')
@@ -224,6 +235,7 @@ axis([0 t(end) 0 (2^n_bits-1)])
 grid on
 
 
+% Super amostragem plot
 subplot(3,1,3);
 plot(t_ss, d_out_ss,'r')
 xlabel('Time');
@@ -232,12 +244,19 @@ title('Captured Signal')
 axis([0 t(end) 0 (2^n_bits-1)])
 grid on
 
+% Experimental
+% subplot(3,1,3);
+% plot(t, iL_t);
+% hold on;
+% plot(t, iL2_t);
+
+
 printf("Vref: %.3f V\n", V_R2);
 printf("Vadc_min: %.3f V\n", Vadc_min);
 printf("Vadc_max: %.3f V\n", Vadc_max);
 printf("Ib_rms: %.1f mA\n", ib_rms*1000);
-printf("Irms: %.2f A (sum)\n", iL_rms);
-printf("Irms: %.2f A (formula)\n", iL_rms_2);
+printf("Irms: %.3f A (simulated)\n", iL_rms);
+printf("Irms: %.3f A (experimental)\n", iL2_rms);
 
 % Caracteristicas sensor 1  0 a 20 A
 % relação 1:2000 com R=300 ohms e Iout =[0 10 mA]
