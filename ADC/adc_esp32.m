@@ -3,44 +3,64 @@
 # edited on 20220423
 
 # To load package signal, run 'pkg load signal' and load dsp functions like resample.
+
+% Caracteristicas sensor 1  0 a 20 A
+% relação 1:2000 com R=300 ohms e Iout =[0 10 mA]
+%		__Vmax
+%		|
+%		|
+%
+%
+%
+%
+% workspace reset
 clc, clear all, clf
 
-%		__Vma
-%		|
-%		|
-%
-%
-%
-%
+% Setup select.
+id = 2;
 
 # stm32F103 ADC clock parameters - clk = F_clk MHz, internal div = 128, 13 cycles for ADC conversion.
 n_bits = 12;										% ADC conversion resolution;
-F_clk = 8e6;										% Crystal system clock [Hz];
-div_1 = 1;											% AHB bus prescale;
-div_2 = 1;											% APB2 bus prescale;
-div_3 = 8;											% ADC prescale;
-% divFc = 128;										% uC dision factor; (atmega328)
-% divScale = 16;									% software prescale factor; (atmega328)
-adc_clk = F_clk/div_1/div_2/div_3;					% ADC clock after all prescalers
-% Options sampling time: 1.5; 7.5; 13.5; 28.5; 41.5; 55.5; 71.5; 239.5. (stm32f103)
-adc_sampling_list = [1.5 7.5 13.5 28.5 41.5 55.5 71.5 239.5];
-adc_sampling_time = adc_sampling_list(8);			% amount of time clock to sample [cycles];
-adc_conv = 12.5;									% Fixed cycles number of ADC peripheral takes to convert [cycles];
-T_conv = adc_sampling_time + adc_conv;				% ADC conversion time [cycles];
-Fs_adc = adc_clk/T_conv;							% ADC sampling rate [samples/s];
-Fs_adc = 3494;										% (ESP32, for example) Uncomment this line to set sample frequency directly;
-% Fs_adc = F_clk/divFc/13;							% Sample rate; (it is for atmega328)
-% Fs_div = Fs_adc/divScale;					    	% Sample rate with prescale;
+
+# ADC Sampling frequency Samples/s
+switch id
+	case 1													% For ESP32 ADC
+		Fs_adc = 21000;										% (ESP32, for example) Uncomment this line to set sample frequency directly;
+
+	case 2													% For ESP32 ADC
+		Fs_adc = 21000;										% (ESP32, for example) Uncomment this line to set sample frequency directly;
+
+    case 3 													% stm32f103 uC
+		F_clk = 8e6;										% Crystal system clock [Hz];
+		div_1 = 1;											% Advanced High-performance Bus (AHB) prescale;
+		div_2 = 1;											% Advanced Peripheral Bus (APB) prescale;
+		div_3 = 8;											% ADC prescale;
+		adc_clk = F_clk/div_1/div_2/div_3;					% ADC clock after all prescalers
+		adc_clk_div_list = [1.5 7.5 13.5 28.5 41.5 55.5 71.5 239.5];    % Clock division or sampling time for STM32F103 series
+		adc_sampling_time = adc_clk_div_list(8);			% amount of time clock to sample [cycles];
+		adc_conv = 12.5;									% Fixed cycles number of ADC peripheral takes to convert [cycles];
+		T_conv = adc_sampling_time + adc_conv;				% ADC conversion time [cycles];
+		Fs_adc = adc_clk/T_conv;							% ADC sampling rate [samples/s];
+
+	case 4
+		% Atmega328P ADC
+		% divFc = 128;										% uC dision factor; (atmega328)
+		% divScale = 16;									% software prescale factor; (atmega328)
+		% Fs_adc = F_clk/divFc/13;							% Sample rate; (it is for atmega328)
+		% Fs_div = Fs_adc/divScale;					    	% Sample rate with prescale;
+    otherwise
+
+end
 
 # After find de sample frequency, we have the sampling interval
 Ts_adc = 1/Fs_adc;									% Sample time [s];
 
 # Teorical periodic signal construction
 f_signal = 60;										% Frequency of sinal;
-n_cycles = 4;										% Number of cycles;
+n_cycles = 1;										% Number of cycles;
 T_signal = 1/f_signal;								% Signal period [s]
 w = 2*pi*f_signal;									% Angular frequency [rad/s]
-phi = -115*pi/180;											% Phase
+phi = -115*pi/180;									% Phase
 
 # Number of points per cycle definition based on sample rate or fixed
 n_points_cycle_2 = T_signal/Ts_adc;					% Number of points per cycle;
@@ -81,7 +101,6 @@ p(3).R2		= 68*10^3;
 p(3).Rb1	= 0;
 p(3).Rb2	= 220+75;
 
-id = 2;
 # Circuit polarization parameters for current sensor
 Vdc	    = p(id).Vdc;								% Voltage supply for transducer circuit [V];
 GND 	= p(id).GND;								% Groud value [V];
@@ -98,7 +117,7 @@ N1		= 1;										% Current transformer sensor ration parameters
 N2		= 2000;										% Current transformer sensor ration parameters
 
 % iL_rms	= 0.495./sqrt(2)/(Rb1+Rb2)*(N2/N1);			% Load current [A];
-iL_rms	= 0.066;									% Load current [A];
+iL_rms	= 1.100;									% Load current [A];
 ib_rms	= iL_rms*(N1/N2);							% Current burden [A];
 ibp     = ib_rms*sqrt(2);							% current peak [A];
 ib_t	= ibp*sin(w*t+phi);							% i2 signal [A];
@@ -193,7 +212,8 @@ fprintf('n_points     : %d\n', n_points);
 % fprintf('Irms        : %f\n', Iksr_rms);
 
 experimental_data_script											% Load experimental data
-vf = v3f;															% Geladeira data;
+vf = v4f;															% Experimental signal selection;
+
 Vadc2_t = vf*(Vmax-Vmin)/(d_max) + Vmin;							% Voltage on Rb2 resistor;
 iL2_t_dc = (vf*(Vmax-Vmin)/(d_max) + Vmin - V_R2)*(1/Rb2)*(N2/N1);
 iL2_t = dc_remove(iL2_t_dc);										% DC offset remove before RMS calculation;
@@ -209,7 +229,7 @@ printf("iL2_rms: %.3f\n", iL2_rms);
 subplot(3,1,1);
 plot(t,Vadc_t,'g')
 hold on
-% plot(t, Vadc2_t, 'r');
+plot(t, Vadc2_t, 'r');
 line ([t(1) t(end)], [V_R2 V_R2], "linestyle", "-", "color", "k")
 line ([t(1) t(end)], [Vadc_max Vadc_max], "linestyle", "--", "color", "k")
 line ([t(1) t(end)], [Vadc_min Vadc_min], "linestyle", "--", "color", "k")
@@ -257,10 +277,3 @@ printf("Vadc_max: %.3f V\n", Vadc_max);
 printf("Ib_rms: %.1f mA\n", ib_rms*1000);
 printf("Irms: %.3f A (simulated)\n", iL_rms);
 printf("Irms: %.3f A (experimental)\n", iL2_rms);
-
-% Caracteristicas sensor 1  0 a 20 A
-% relação 1:2000 com R=300 ohms e Iout =[0 10 mA]
-
-
-
-
