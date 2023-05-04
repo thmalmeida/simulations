@@ -60,7 +60,7 @@ f_signal = 60;										% Frequency of sinal;
 n_cycles = 1;										% Number of cycles;
 T_signal = 1/f_signal;								% Signal period [s]
 w = 2*pi*f_signal;									% Angular frequency [rad/s]
-phi = -115*pi/180;									% Phase
+phi = -75*pi/180;									% Phase
 
 # Number of points per cycle definition based on sample rate or fixed
 n_points_cycle_2 = T_signal/Ts_adc;					% Number of points per cycle;
@@ -239,9 +239,13 @@ text2 = text(t(end)/2*1.00, Vadc_max+0.15, sprintf('Vmax: %2.2f', Vadc_max));
 text3 = text(t(end)/2*1.20, Vadc_min+0.15, sprintf('Vmin: %2.2f', Vadc_min));
 set(text1,'fontweight','bold');
 % xlabel('Time');
-ylabel('Vabc(t)');
-title('Real Signal')
-axis([0 t(end) (GND-0.2) Vdc])
+ylabel('VRb(t)');
+xlabel('time [s]');
+title('Voltage on Rb resistor readed by ADC peripheral');
+% axis([0 t(end) (GND-0.2) Vdc])
+h = legend("simulated", "experimental");
+legend(h, "location", "northeast");	% northeastoutside
+set (h, "fontsize", 12);
 grid on
 
 subplot(3,1,2);
