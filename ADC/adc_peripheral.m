@@ -17,7 +17,7 @@
 clc, clear all, clf
 
 % Setup select.
-id = 2;
+id = 3;
 
 # stm32F103 ADC clock parameters - clk = F_clk MHz, internal div = 128, 13 cycles for ADC conversion.
 n_bits = 12;										% ADC conversion resolution;
@@ -31,15 +31,15 @@ switch id
 		Fs_adc = 21000;										% (ESP32, for example) Uncomment this line to set sample frequency directly;
 
     case 3 													% stm32f103 uC
-		F_clk = 8e6;										% Crystal system clock [Hz];
+		F_clk = 48e6;										% Crystal system clock [Hz];
 		div_1 = 1;											% Advanced High-performance Bus (AHB) prescale;
-		div_2 = 1;											% Advanced Peripheral Bus (APB) prescale;
-		div_3 = 8;											% ADC prescale;
+		div_2 = 2;											% Advanced Peripheral Bus (APB2) prescale;
+		div_3 = 8;											% ADC prescale (2, 4, 6 or 8);
 		adc_clk = F_clk/div_1/div_2/div_3;					% ADC clock after all prescalers
 		adc_clk_div_list = [1.5 7.5 13.5 28.5 41.5 55.5 71.5 239.5];    % Clock division or sampling time for STM32F103 series
 		adc_sampling_time = adc_clk_div_list(8);			% amount of time clock to sample [cycles];
 		adc_conv = 12.5;									% Fixed cycles number of ADC peripheral takes to convert [cycles];
-		T_conv = adc_sampling_time + adc_conv;				% ADC conversion time [cycles];
+		T_conv = adc_sampling_time + adc_conv;				% Number of adc clock cycles to make one ADC conversion.
 		Fs_adc = adc_clk/T_conv;							% ADC sampling rate [samples/s];
 
 	case 4
@@ -57,7 +57,7 @@ Ts_adc = 1/Fs_adc;									% Sample time [s];
 
 # Teorical periodic signal construction
 f_signal = 60;										% Frequency of sinal;
-n_cycles = 1;										% Number of cycles;
+n_cycles = 2;										% Number of cycles;
 T_signal = 1/f_signal;								% Signal period [s]
 w = 2*pi*f_signal;									% Angular frequency [rad/s]
 phi = -75*pi/180;									% Phase
@@ -65,7 +65,7 @@ phi = -75*pi/180;									% Phase
 # Number of points per cycle definition based on sample rate or fixed
 n_points_cycle_2 = T_signal/Ts_adc;					% Number of points per cycle;
 n_points_cycle = Fs_adc/f_signal;					% Number of points per cycle;
-n_points = n_points_cycle*n_cycles;					% Number of signal points.
+n_points = ceil(n_points_cycle*n_cycles);					% Number of signal points.
 t = linspace(0,1/f_signal*n_cycles,n_points); 		% Signal time vector [s].
 
 # ESP32 parameters for circuit voltage divider
@@ -99,7 +99,7 @@ p(3).d_max	= 2^n_bits - 1;
 p(3).R1		= 68*10^3;
 p(3).R2		= 68*10^3;
 p(3).Rb1	= 0;
-p(3).Rb2	= 220+75;
+p(3).Rb2	= 300;
 
 # Circuit polarization parameters for current sensor
 Vdc	    = p(id).Vdc;								% Voltage supply for transducer circuit [V];
@@ -211,17 +211,6 @@ fprintf('n_points     : %d\n', n_points);
 % fprintf('n_points     : %d\n', n_points_div);
 % fprintf('Irms        : %f\n', Iksr_rms);
 
-experimental_data_script											% Load experimental data
-vf = v4f;															% Experimental signal selection;
-
-Vadc2_t = vf*(Vmax-Vmin)/(d_max) + Vmin;							% Voltage on Rb2 resistor;
-iL2_t_dc = (vf*(Vmax-Vmin)/(d_max) + Vmin - V_R2)*(1/Rb2)*(N2/N1);
-iL2_t = dc_remove(iL2_t_dc);										% DC offset remove before RMS calculation;
-% iL2_t = iL2_t_dc;
-iL2_rms = sqrt(sum(iL2_t.^2)/length(iL2_t));						% Load current RMS in [A], using equation;
-printf("iL2_rms: %.3f\n", iL2_rms);
-% set(gcf, 'Position', get(0,'Screensize'));
-
 % subplot(4,1,1);
 % plot(t,vd,'b')
 % ylabel('Vd');
@@ -229,7 +218,20 @@ printf("iL2_rms: %.3f\n", iL2_rms);
 subplot(3,1,1);
 plot(t,Vadc_t,'g')
 hold on
-plot(t, Vadc2_t, 'r');
+
+% if id != 3
+	experimental_data_script											% Load experimental data
+	vf = v5f;															% Experimental signal selection;
+	Vadc2_t = vf*(Vmax-Vmin)/(d_max) + Vmin;							% Voltage on Rb2 resistor;
+	iL2_t_dc = (vf*(Vmax-Vmin)/(d_max) + Vmin - V_R2)*(1/Rb2)*(N2/N1);
+	iL2_t = dc_remove(iL2_t_dc);										% DC offset remove before RMS calculation;
+	% iL2_t = iL2_t_dc;
+	iL2_rms = sqrt(sum(iL2_t.^2)/length(iL2_t));						% Load current RMS in [A], using equation;
+	printf("iL2_rms: %.3f\n", iL2_rms);
+	% set(gcf, 'Position', get(0,'Screensize'));
+	plot(t, Vadc2_t, 'r');
+% endif
+
 line ([t(1) t(end)], [V_R2 V_R2], "linestyle", "-", "color", "k")
 line ([t(1) t(end)], [Vadc_max Vadc_max], "linestyle", "--", "color", "k")
 line ([t(1) t(end)], [Vadc_min Vadc_min], "linestyle", "--", "color", "k")
@@ -274,10 +276,12 @@ grid on
 % hold on;
 % plot(t, iL2_t);
 
-
 printf("Vref: %.3f V\n", V_R2);
 printf("Vadc_min: %.3f V\n", Vadc_min);
 printf("Vadc_max: %.3f V\n", Vadc_max);
 printf("Ib_rms: %.1f mA\n", ib_rms*1000);
 printf("Irms: %.3f A (simulated)\n", iL_rms);
-printf("Irms: %.3f A (experimental)\n", iL2_rms);
+
+if id != 3
+	printf("Irms: %.3f A (experimental)\n", iL2_rms);
+endif

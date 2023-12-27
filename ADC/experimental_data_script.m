@@ -5,6 +5,8 @@ v1 = csvread('data_raw-geladeira.txt');
 v2 = csvread('data_raw-xeds1.txt');
 v3 = csvread('data_raw-xeds2.txt');
 v4 = csvread('data_raw-xeds3.txt');
+v5 = csvread('data_raw-stm32_04.txt');
+v6 = csvread('data_raw-stm32_05.txt');
 % Low pass filter
 
 % y[n]=0.8y[n−1]+0.2x[n]
@@ -14,6 +16,8 @@ v1f = filter(v1);
 v2f = filter(v2);
 v3f = filter(v3);
 v4f = filter(v4);
+v5f = v5;
+v6f = v6;
 % vf = v3f;
 
 % d_out = v0;

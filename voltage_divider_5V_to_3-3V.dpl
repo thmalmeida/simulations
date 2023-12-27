@@ -1,0 +1,31 @@
+<Qucs Schematic 1.0.1>
+<Properties>
+  <View=0,-45,1486,1241,1,0,45>
+  <Grid=10,10,0>
+  <DataSet=voltage_divider_5V_to_3-3V.dat>
+  <DataDisplay=voltage_divider_5V_to_3-3V.sch>
+  <OpenDisplay=1>
+  <Script=voltage_divider_5V_to_3-3V.m>
+  <RunScript=0>
+  <showFrame=0>
+  <FrameText0=Title>
+  <FrameText1=Drawn By:>
+  <FrameText2=Date:>
+  <FrameText3=Revision:>
+</Properties>
+<Symbol>
+</Symbol>
+<Components>
+</Components>
+<Wires>
+</Wires>
+<Diagrams>
+  <Rect 130 649 1229 559 3 #c0c0c0 1 00 1 0 0.2 1 1 -0.1 0.5 1.1 1 -0.1 0.5 1.1 315 0 225 0 0 0 "" "" "">
+	<"Vin.Vt" #0000ff 0 3 0 0 0>
+	  <Mkr 0.000425 152 -604 3 0 0>
+	<"Vout.Vt" #ff0000 0 3 0 0 0>
+	  <Mkr 0.000475 153 -430 3 0 0>
+  </Rect>
+</Diagrams>
+<Paintings>
+</Paintings>

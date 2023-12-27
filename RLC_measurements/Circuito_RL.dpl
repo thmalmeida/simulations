@@ -1,6 +1,6 @@
-<Qucs Schematic >
+<Qucs Schematic 1.0.1>
 <Properties>
-  <View=0,0,1399,888,1,0,0>
+  <View=0,0,1529,1211,1,0,0>
   <Grid=10,10,0>
   <DataSet=Circuito_RL.dat>
   <DataDisplay=Circuito_RL.sch>
@@ -20,8 +20,16 @@
 <Wires>
 </Wires>
 <Diagrams>
-  <Rect 250 785 1102 774 3 #c0c0c0 1 00 1 0 0.1 2 1 -2.10391 0.2 0.2 1 -1 0.2 1 315 0 225 "" "" "" "">
-	<"IL.It" #0000ff 0 3 0 0 0>
+  <Rect 279 384 990 374 3 #c0c0c0 1 00 1 0 0.05 1 1 -0.1 0.2 1.1 1 -1 0.5 1 315 0 225 0 0 0 "" "" "">
+	<"Il_natural.It" #0000ff 0 3 0 0 0>
+	<"vl_natural.Vt" #ff0000 0 3 0 0 0>
+  </Rect>
+  <Rect 279 794 990 374 3 #c0c0c0 1 00 1 0 0.0001 0.00125 1 -11.2 2 3.2 1 -1 0.2 1 315 0 225 0 0 0 "" "" "">
+	<"il_degrau.It" #0000ff 0 3 0 0 0>
+	  <Mkr 0.001245 1046 -377 3 0 0>
+	  <Mkr 6.25e-06 65 -402 3 0 0>
+	<"vl_degrau.Vt" #ff0000 0 3 0 0 0>
+	<"Vo2.Vt" #ff00ff 0 3 0 0 0>
   </Rect>
 </Diagrams>
 <Paintings>

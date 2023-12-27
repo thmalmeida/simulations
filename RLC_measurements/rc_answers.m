@@ -4,10 +4,10 @@
 
 # Dica: montar o circuito simples resistor capacitor com um sinal quadrado
 
-clear all, close all, clc;
-# Capacímetro
-# Natural answer parameters
-R = 1000;                   % resistance in ohms;
+clear all, clc;
+## Capacímetro
+# 1- Natural Answer
+R = 100;                   % resistance in ohms;
 C = 470*10^-9;              % capacitance in faradays [F];
 tau = R*C;                  % time constant;
 T = 5*tau;                  % time in [s];
@@ -18,11 +18,10 @@ f = 1/T;                    % signal frequency in [Hz];
 n = 100;                    % number of simulation points;
 t = linspace(0, T, n);      % time vector of simulation;
 
-% Natural answer
-Vct_natural = Vs*e.^(-t/tau);
+Vct_natural = Vs*e.^(-t/tau);   % Natural answer curve
 
 % vc(tau) (natural)
-Vct_natural_6321 = Vs*e.^(-1);
+Vct_natural_6321 = Vs*e.^(-1);  % Time constant for 63,21%
 
 % Degrau answer
 Vct_degrau = Is*R + (vc0 - Is*R)*e.^(-t/tau);

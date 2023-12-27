@@ -117,5 +117,5 @@
 <Diagrams>
 </Diagrams>
 <Paintings>
-  <Text 900 100 12 #000000 0 "ESP32\n- Polarization circuit; \n- voltage ranges with attenuation.\n\nattenuations:\n- dB-0:    100 mV - 950 mV      (Vref: 525 mV)\n- dB-2-5: 100 mV - 1250 mV    (Vref: 675 mV)\n- dB-6:    150 mV ~ 1750 mV   (Vref: 950 mV)\n- dB-11:  150 mV ~ 2450 mV   (Vref: 1300 mV)\n\nWorkin resistances to use dB-11 and Vcc = 3.3V, Vref = 1.1V\n\nR1 = 56 kOhms;\nR2 = 39 kOhms;\nRb = 100 Ohms;\n\n">
+  <Text 900 100 12 #000000 0 "ESP32\n- Polarization circuit; \n- voltage ranges with attenuation.\n\nattenuations:\n- dB-0:    100 mV - 950 mV      (Vref: 525 mV)\n- dB-2-5: 100 mV - 1250 mV    (Vref: 675 mV)\n- dB-6:    150 mV ~ 1750 mV   (Vref: 950 mV)\n- dB-11:  150 mV ~ 2450 mV   (Vref: 1300 mV)\n\nWorkin resistances to use dB-11 and Vcc = 3.3V, Vref = 1.1V\n\nR1 = 56 kOhms;\nR2 = 39 kOhms;\nRb = (Rb1 + Rb2) = 100 Ohms;\n\n">
 </Paintings>

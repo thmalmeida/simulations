@@ -1,0 +1,39 @@
+<Qucs Schematic 1.0.1>
+<Properties>
+  <View=0,-520,1494,936,1,0,0>
+  <Grid=10,10,0>
+  <DataSet=booster.dat>
+  <DataDisplay=booster.sch>
+  <OpenDisplay=1>
+  <Script=booster.m>
+  <RunScript=0>
+  <showFrame=0>
+  <FrameText0=Title>
+  <FrameText1=Drawn By:>
+  <FrameText2=Date:>
+  <FrameText3=Revision:>
+</Properties>
+<Symbol>
+</Symbol>
+<Components>
+</Components>
+<Wires>
+</Wires>
+<Diagrams>
+  <Rect 140 382 1195 342 3 #c0c0c0 1 00 1 0 0.002 0.008 1 -11.1 5 2.1 1 -1 0.5 1 315 0 225 0 0 0 "" "" "">
+	<"vl_natural.Vt" #0000ff 0 3 0 0 0>
+	<"il_natural.It" #ff0000 0 3 0 0 0>
+  </Rect>
+  <Rect 140 802 1195 342 3 #c0c0c0 1 00 1 0 0.0005 0.0075 1 -1 2 11 1 -1 0.5 1 315 0 225 0 0 0 "" "" "">
+	<"vl_degrau.Vt" #0000ff 0 3 0 0 0>
+	<"il_degrau.It" #ff0000 0 3 0 0 0>
+	<"VRd.Vt" #00ff00 0 3 0 0 0>
+  </Rect>
+  <Rect 150 -58 1195 342 3 #c0c0c0 1 00 1 0 0.0005 0.0075 1 -1 2 11 1 -1 0.5 1 315 0 225 0 0 0 "" "" "">
+	<"vl_booster.Vt" #0000ff 0 3 0 0 0>
+	<"il_booster.It" #ff0000 0 3 0 0 0>
+	<"Vout.Vt" #ff00ff 0 3 0 0 0>
+  </Rect>
+</Diagrams>
+<Paintings>
+</Paintings>
